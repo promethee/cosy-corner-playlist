@@ -1,0 +1,33 @@
+---
+title: Tableau des morceaux
+layout: base.njk
+permalink: /tableau/
+bodyClass: page-tableau
+---
+{% set episodesWithTracks = episodes | withTracks %}
+
+<p class="count">{{ episodesWithTracks.length }} épisodes avec playlist</p>
+
+<table class="track-table">
+  <thead>
+    <tr>
+      <th>Épisode</th>
+      <th>Date</th>
+      <th>Artiste</th>
+      <th>Morceau</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for episode in episodesWithTracks %}
+      {% set realTracks = episode.tracks | realTracks %}
+      {% for track in realTracks %}
+        <tr>
+          <td>{{ episode.title }}</td>
+          <td>{{ episode.pubDate | humanDate }}</td>
+          <td>{{ track.artist }}</td>
+          <td>{{ track.title }}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>

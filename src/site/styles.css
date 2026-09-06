@@ -165,3 +165,22 @@ nav a:hover {
   font-size: 0.7rem;
   margin: 0;
 }
+
+.track-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+.track-table th {
+  text-align: left;
+  border-bottom: 2px solid var(--text);
+  padding: 0.5rem;
+}
+.track-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.track-table tr:hover {
+  background: #f7f7f7;
+}
