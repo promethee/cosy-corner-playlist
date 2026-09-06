@@ -43,6 +43,10 @@ export default function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addFilter('withTracks', (episodes) =>
+    episodes.filter((e) => e.tracks.length > 0),
+  );
+
   return {
     dir: {
       input: 'src/site',

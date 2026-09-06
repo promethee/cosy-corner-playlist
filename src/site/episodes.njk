@@ -4,28 +4,25 @@ layout: base.njk
 permalink: /episodes/
 bodyClass: page-episodes
 ---
-<p class="count">{{ episodes.length }} épisodes</p>
+{% set episodesWithTracks = episodes | withTracks %}
+
+<p class="count">{{ episodesWithTracks.length }} épisodes avec playlist (sur {{ episodes.length }} au total)</p>
 
 <div class="episodes-grid">
-  {% for episode in episodes %}
+  {% for episode in episodesWithTracks %}
     <section class="episode-card">
-      <h2 title={{ episode.pubDate | humanDate }}>
-        {{ episode.title }}
-      </h2>
-      {% if episode.tracks.length > 0 %}
-        <div class="track-grid">
-          {% for track in episode.tracks %}
-            {% if track.artist != "ALB" %}
-              <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
-                <p class="track-artist">{{ track.artist }}</p>
-                <p class="track-title">{{ track.title }}</p>
-              </a>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% else %}
-        <p class="empty">Pas de playlist pour cet épisode.</p>
-      {% endif %}
+      <h2>{{ episode.title }}</h2>
+      <p class="date">{{ episode.pubDate | humanDate }}</p>
+      <div class="track-grid">
+        {% for track in episode.tracks %}
+          {% if track.artist != "ALB" %}
+            <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
+              <p class="track-artist">{{ track.artist }}</p>
+              <p class="track-title">{{ track.title }}</p>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
     </section>
   {% endfor %}
 </div>
