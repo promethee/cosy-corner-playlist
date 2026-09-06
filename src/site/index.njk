@@ -9,20 +9,19 @@ layout: base.njk
   <h2>{{ latest.title }}</h2>
   <p class="date">{{ latest.pubDate | humanDate }}</p>
 
-{% if latest.tracks.length > 0 %}
-  <div class="track-grid">
-    {% for track in latest.tracks %}
-    {% if track.artist != "ALB" %}
-      <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
-        <p class="track-artist">{{ track.artist }}</p>
-        <p class="track-title">{{ track.title }}</p>
-      </a>
-    {% endif %}
-    {% endfor %}
-  </div>
-{% else %}
-  <p class="empty">Pas de playlist pour cet épisode.</p>
-{% endif %}
+  {% set realTracks = latest.tracks | realTracks %}
+  {% if realTracks.length > 0 %}
+    <div class="track-grid">
+      {% for track in realTracks %}
+        <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
+          <p class="track-artist">{{ track.artist }}</p>
+          <p class="track-title">{{ track.title }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">Pas de playlist pour cet épisode.</p>
+  {% endif %}
 </section>
 
-<p class="all-episodes-link"><a href="/episodes/">Voir tous les épisodes →</a></p>
+<p class="all-episodes-link"><a href="{{ '/episodes/' | url }}">Voir tous les épisodes →</a></p>

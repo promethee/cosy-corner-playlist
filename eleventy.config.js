@@ -76,6 +76,7 @@ export default function (eleventyConfig) {
   });
 
   return {
+    pathPrefix: '/cosy-corner-playlist/',
     dir: {
       input: 'src/site',
       output: '_site',
