@@ -5,29 +5,81 @@ permalink: /tableau/
 bodyClass: page-tableau
 ---
 {% set episodesWithTracks = episodes | withTracks %}
+{% set uniqueTracks = episodesWithTracks | dedupeAcrossEpisodes %}
 
-<p class="count">{{ episodesWithTracks.length }} épisodes avec playlist</p>
+<p class="count">{{ uniqueTracks.length }} morceaux uniques, sur {{ episodesWithTracks.length }} épisodes avec playlist</p>
 
-<table class="track-table">
+<table class="track-table" id="track-table">
   <thead>
     <tr>
-      <th>Épisode</th>
-      <th>Date</th>
-      <th>Artiste</th>
-      <th>Morceau</th>
+    <th data-sort="number">Épisode <span class="sort-arrow">▼</span></th>
+    <th>Date</th>
+    <th data-sort="text">Artiste <span class="sort-arrow">⇅</span></th>
+    <th data-sort="text">Morceau <span class="sort-arrow">⇅</span></th>
+    <th data-sort="number">Nb. épisodes <span class="sort-arrow">⇅</span></th>
+    <th>Lien</th>
     </tr>
   </thead>
   <tbody>
-    {% for episode in episodesWithTracks %}
-      {% set realTracks = episode.tracks | realTracks %}
-      {% for track in realTracks %}
-        <tr>
-          <td>{{ episode.title }}</td>
-          <td>{{ episode.pubDate | humanDate }}</td>
-          <td>{{ track.artist }}</td>
-          <td>{{ track.title }}</td>
-        </tr>
-      {% endfor %}
+    {% for track in uniqueTracks %}
+    <tr>
+        <td>#{{ track.latestEpisodeNumber }}</td>
+        <td>{{ track.latestEpisodeDate | humanDate }}</td>
+        <td>{{ track.artist }}</td>
+        <td>{{ track.title }}</td>
+        <td>{{ track.episodes.length }}</td>
+        <td>
+            <span class="link-cell">
+                <a href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener" title="Rechercher sur DuckDuckGo">
+                    <img src="https://cdn.simpleicons.org/duckduckgo" alt="DuckDuckGo" width="18" height="18">
+                </a>
+                <a href="https://soundcloud.com/search?q={{ (track.artist + ' ' + track.title) | urlencode }}" target="_blank" rel="noopener" title="Rechercher sur SoundCloud">
+                    <img src="https://cdn.simpleicons.org/soundcloud" alt="SoundCloud" width="18" height="18">
+                </a>
+            </span>
+        </td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<script>
+  (function () {
+    const table = document.getElementById("track-table");
+    const headers = table.querySelectorAll("th");
+    let currentSort = { index: -1, ascending: true };
+
+    headers.forEach((header, index) => {
+      if (!header.dataset.sort) return; // skip non-sortable columns like "Lien"
+      header.style.cursor = "pointer";
+      header.addEventListener("click", () => {
+        const type = header.dataset.sort;
+        const tbody = table.querySelector("tbody");
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+
+        const ascending = currentSort.index === index ? !currentSort.ascending : true;
+        currentSort = { index, ascending };
+
+        rows.sort((a, b) => {
+          let aVal = a.children[index].textContent.trim();
+          let bVal = b.children[index].textContent.trim();
+
+            if (type === "number") {
+            aVal = parseFloat(aVal.replace(/[^\d.-]/g, "")) || 0;
+            bVal = parseFloat(bVal.replace(/[^\d.-]/g, "")) || 0;
+            return ascending ? aVal - bVal : bVal - aVal;
+            }
+
+          return ascending
+            ? aVal.localeCompare(bVal, "fr")
+            : bVal.localeCompare(aVal, "fr");
+        });
+
+        rows.forEach((row) => tbody.appendChild(row));
+
+        headers.forEach((h) => h.querySelector(".sort-arrow") !== null && h.querySelector(".sort-arrow").textContent !== null && (h.querySelector(".sort-arrow").textContent = "⇅"));
+        header.querySelector(".sort-arrow").textContent = ascending ? "▲" : "▼";
+      });
+    });
+  })();
+</script>

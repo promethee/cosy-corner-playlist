@@ -9,15 +9,16 @@ layout: base.njk
   <h2>{{ latest.title }}</h2>
   <p class="date">{{ latest.pubDate | humanDate }}</p>
 
-  {% set realTracks = latest.tracks | realTracks %}
+{% set realTracks = latest.tracks | realTracks | dedupeTracks %}
+
   {% if realTracks.length > 0 %}
     <div class="track-grid">
-      {% for track in realTracks %}
-        <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
-          <p class="track-artist">{{ track.artist }}</p>
-          <p class="track-title">{{ track.title }}</p>
-        </a>
-      {% endfor %}
+    {% for track in realTracks %}
+      <a class="track-tile" href="...">
+        <p class="track-artist">{{ track.artist }}</p>
+        <p class="track-title">{{ track.title }}{% if track.count > 1 %} <span class="track-count">×{{ track.count }}</span>{% endif %}</p>
+      </a>
+    {% endfor %}
     </div>
   {% else %}
     <p class="empty">Pas de playlist pour cet épisode.</p>

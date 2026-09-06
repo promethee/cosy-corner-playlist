@@ -1,11 +1,13 @@
-import { readFileSync } from "node:fs";
-import type { Episode } from "./types.js";
+import { readFileSync } from 'node:fs';
+import type { Episode } from './types.js';
 
-const episodes: Episode[] = JSON.parse(readFileSync("data/episodes.json", "utf8"));
+const episodes: Episode[] = JSON.parse(
+  readFileSync('data/episodes.json', 'utf8'),
+);
 
 // Exclude the recurring "ALB" special-thanks entry from counts, since it's not real music
 const realTrackCounts = episodes.map(
-  (e) => e.tracks.filter((t) => t.artist !== "ALB").length
+  (e) => e.tracks.filter((t) => t.artist !== 'ALB').length,
 );
 
 const withTracks = realTrackCounts.filter((c) => c > 0);
@@ -30,13 +32,15 @@ console.log(`p75: ${percentile(sorted, 75)}`);
 console.log(`p90: ${percentile(sorted, 90)}`);
 console.log(`p95: ${percentile(sorted, 95)}`);
 
-console.log("\nDistribution (track count -> number of episodes):");
+console.log('\nDistribution (track count -> number of episodes):');
 const distribution = new Map<number, number>();
 for (const count of withTracks) {
   distribution.set(count, (distribution.get(count) ?? 0) + 1);
 }
 const sortedKeys = [...distribution.keys()].sort((a, b) => a - b);
 for (const key of sortedKeys) {
-  const bar = "█".repeat(distribution.get(key)!);
-  console.log(`${String(key).padStart(3)} tracks: ${bar} (${distribution.get(key)})`);
+  const bar = '█'.repeat(distribution.get(key)!);
+  console.log(
+    `${String(key).padStart(3)} tracks: ${bar} (${distribution.get(key)})`,
+  );
 }

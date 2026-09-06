@@ -35,6 +35,10 @@ header h1 a:hover {
   color: var(--brand-red);
 }
 
+nav {
+  text-align: center;
+}
+
 nav a {
   margin-right: 1rem;
   font-size: 0.9rem;
@@ -166,6 +170,11 @@ nav a:hover {
   margin: 0;
 }
 
+.track-count {
+  opacity: 0.6;
+  font-weight: 600;
+}
+
 .track-table {
   width: 100%;
   border-collapse: collapse;
@@ -211,4 +220,35 @@ nav a:hover {
 .platform-links a:hover img,
 .platform-links a:hover svg {
   opacity: 1;
+}
+
+.track-table th {
+  user-select: none;
+}
+.track-table th[data-sort] {
+  cursor: pointer;
+}
+.track-table th[data-sort]:hover {
+  color: var(--brand-red);
+  background: #f7f7f7;
+}
+.sort-arrow {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+  opacity: 0.4;
+}
+
+.track-table td img {
+  display: block;
+  opacity: 0.75;
+  transition: opacity 0.15s ease;
+}
+.track-table td a:hover img {
+  opacity: 1;
+}
+
+.link-cell {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
 }
