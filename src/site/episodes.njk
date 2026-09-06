@@ -18,10 +18,10 @@ bodyClass: page-episodes
       <h2 title={{ episode.pubDate | humanDate }}>{{ episode.title }}</h2>
       <div class="track-grid" style="grid-template-columns: repeat({{ cols }}, 1fr);">
         {% for track in realTracks %}
-          <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
-            <p class="track-artist">{{ track.artist }}</p>
-            <p class="track-title">{{ track.title }}</p>
-          </a>
+        <a class="track-tile" href="{{ track | searchLink }}" target="_blank" rel="noopener">
+          <p class="track-artist">{{ track.artist }}</p>
+          <p class="track-title">{{ track.title }}</p>
+        </a>
         {% endfor %}
       </div>
     </section>

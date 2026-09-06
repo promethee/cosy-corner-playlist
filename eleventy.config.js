@@ -135,6 +135,15 @@ export default function (eleventyConfig) {
     );
   });
 
+  eleventyConfig.addFilter('searchLink', (track) => {
+    const query = `${track.artist} ${track.title}`;
+    const isOst = track.title.toUpperCase().includes('OST');
+
+    return isOst
+      ? `https://duckduckgo.com/?q=${encodeURIComponent(query)}&iar=videos&ia=videos`
+      : `https://soundcloud.com/search?q=${encodeURIComponent(query)}`;
+  });
+
   return {
     pathPrefix: '/cosy-corner-playlist/',
     dir: {

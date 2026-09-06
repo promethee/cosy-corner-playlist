@@ -14,10 +14,10 @@ layout: base.njk
   {% if realTracks.length > 0 %}
     <div class="track-grid">
     {% for track in realTracks %}
-      <a class="track-tile" href="...">
-        <p class="track-artist">{{ track.artist }}</p>
-        <p class="track-title">{{ track.title }}{% if track.count > 1 %} <span class="track-count">×{{ track.count }}</span>{% endif %}</p>
-      </a>
+    <a class="track-tile" href="{{ track | searchLink }}" target="_blank" rel="noopener">
+      <p class="track-artist">{{ track.artist }}</p>
+      <p class="track-title">{{ track.title }}</p>
+    </a>
     {% endfor %}
     </div>
   {% else %}
