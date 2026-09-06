@@ -1,0 +1,31 @@
+---
+title: Cosy Corner Playlist
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <p>{{ episodes.length }} épisodes</p>
+
+  {% for episode in episodes %}
+    <section>
+      <h2>{{ episode.title }}</h2>
+      <p><small>{{ episode.pubDate }}</small></p>
+      {% if episode.tracks.length > 0 %}
+        <ul>
+          {% for track in episode.tracks %}
+            <li>{{ track.artist }} — {{ track.title }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p><em>Pas de playlist pour cet épisode.</em></p>
+      {% endif %}
+    </section>
+  {% endfor %}
+</body>
+</html>
