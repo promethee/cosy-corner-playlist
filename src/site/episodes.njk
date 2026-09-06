@@ -15,7 +15,7 @@ bodyClass: page-episodes
     {% set cols = realTracks.length | innerColumns %}
 
     <section class="episode-card" style="grid-column: span {{ span }};">
-      <h2 title={{ episode.pubDate | humanDate }}>{{ episode.title }}</h2>
+      <h2 title="{{ episode.pubDate | humanDate }}">{{ episode.title }}</h2>
       <div class="track-grid" style="grid-template-columns: repeat({{ cols }}, 1fr);">
         {% for track in realTracks %}
         <a class="track-tile" href="{{ track | searchLink }}" target="_blank" rel="noopener">
