@@ -1,0 +1,28 @@
+---
+title: Tous les épisodes
+layout: base.njk
+permalink: /episodes/
+---
+<p class="count">{{ episodes.length }} épisodes</p>
+
+{% for episode in episodes %}
+  <section class="episode">
+    <h2 title="{{ episode.pubDate | standardDate }}">
+      {{ episode.title }} ({{ episode.pubDate | humanDate }})
+    </h2>
+    {% if episode.tracks.length > 0 %}
+      <div class="track-grid">
+        {% for track in episode.tracks %}
+          {% if track.artist != "ALB" %}
+            <div class="track-tile">
+              <p class="track-artist">{{ track.artist }}</p>
+              <p class="track-title">{{ track.title }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">Pas de playlist pour cet épisode.</p>
+    {% endif %}
+  </section>
+{% endfor %}

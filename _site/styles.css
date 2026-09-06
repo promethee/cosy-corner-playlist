@@ -68,3 +68,57 @@ nav a:hover {
   color: #999;
   font-style: italic;
 }
+
+.eyebrow {
+  color: var(--brand-red);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0;
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.track-card {
+  text-align: center;
+}
+
+.track-tile {
+  aspect-ratio: 1;
+  background: var(--text);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.track-artist {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0 0 0.35rem;
+}
+
+.track-title {
+  color: #ccc;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.all-episodes-link {
+  margin-top: 2rem;
+}
+.all-episodes-link a {
+  color: var(--brand-red);
+  text-decoration: none;
+  font-weight: 600;
+}

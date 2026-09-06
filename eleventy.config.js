@@ -1,6 +1,48 @@
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/site/styles.css');
 
+  eleventyConfig.addFilter(
+    'relativeDate',
+    (dateString, referenceDateString) => {
+      const date = new Date(dateString);
+      const reference = new Date(referenceDateString);
+      const diffMs = reference - date;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 1) return 'ce jour-là';
+      if (diffDays === 1) return 'la veille';
+      if (diffDays < 7) return `${diffDays} jours avant`;
+      if (diffDays < 30) {
+        const weeks = Math.floor(diffDays / 7);
+        return weeks === 1 ? '1 semaine avant' : `${weeks} semaines avant`;
+      }
+      if (diffDays < 365) {
+        const months = Math.floor(diffDays / 30);
+        return months === 1 ? '1 mois avant' : `${months} mois avant`;
+      }
+      const years = Math.floor(diffDays / 365);
+      return years === 1 ? '1 an avant' : `${years} ans avant`;
+    },
+  );
+
+  eleventyConfig.addFilter('standardDate', (dateString) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}/${mm}/${dd}`;
+  });
+
+  eleventyConfig.addFilter('humanDate', (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  });
+
   return {
     dir: {
       input: 'src/site',
