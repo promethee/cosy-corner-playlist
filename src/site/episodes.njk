@@ -10,17 +10,18 @@ bodyClass: page-episodes
 
 <div class="episodes-grid">
   {% for episode in episodesWithTracks %}
-    <section class="episode-card">
-      <h2>{{ episode.title }}</h2>
-      <p class="date">{{ episode.pubDate | humanDate }}</p>
-      <div class="track-grid">
-        {% for track in episode.tracks %}
-          {% if track.artist != "ALB" %}
-            <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
-              <p class="track-artist">{{ track.artist }}</p>
-              <p class="track-title">{{ track.title }}</p>
-            </a>
-          {% endif %}
+    {% set realTracks = episode.tracks | realTracks %}
+    {% set span = realTracks.length | cardSpan %}
+    {% set cols = realTracks.length | innerColumns %}
+
+    <section class="episode-card" style="grid-column: span {{ span }};">
+      <h2 title={{ episode.pubDate | humanDate }}>{{ episode.title }}</h2>
+      <div class="track-grid" style="grid-template-columns: repeat({{ cols }}, 1fr);">
+        {% for track in realTracks %}
+          <a class="track-tile" href="https://duckduckgo.com/?q={{ (track.artist + ' ' + track.title) | urlencode }}&iar=videos&ia=videos" target="_blank" rel="noopener">
+            <p class="track-artist">{{ track.artist }}</p>
+            <p class="track-title">{{ track.title }}</p>
+          </a>
         {% endfor %}
       </div>
     </section>

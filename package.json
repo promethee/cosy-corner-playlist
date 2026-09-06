@@ -9,7 +9,8 @@
     "backfill": "tsx src/backfill.ts",
     "typecheck": "tsc --noEmit",
     "site:build": "eleventy",
-    "site:serve": "eleventy --serve"
+    "site:serve": "eleventy --serve",
+    "stats": "tsx src/stats.ts"
   },
   "dependencies": {
     "fast-xml-parser": "^4.5.0"

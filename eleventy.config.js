@@ -47,6 +47,34 @@ export default function (eleventyConfig) {
     episodes.filter((e) => e.tracks.length > 0),
   );
 
+  eleventyConfig.addFilter('realTracks', (tracks) =>
+    tracks.filter((t) => t.artist !== 'ALB'),
+  );
+
+  eleventyConfig.addFilter('cardSpan', (trackCount) => {
+    if (trackCount <= 8) return 1;
+    if (trackCount <= 16) return 2;
+    return 3;
+  });
+
+  eleventyConfig.addFilter('innerColumns', (trackCount) => {
+    if (trackCount <= 8) return 2;
+    if (trackCount <= 16) return 4;
+    return 6;
+  });
+
+  eleventyConfig.addFilter('cardSpan', (trackCount) => {
+    if (trackCount <= 8) return 1;
+    if (trackCount <= 16) return 2;
+    return 3;
+  });
+
+  eleventyConfig.addFilter('innerColumns', (trackCount) => {
+    if (trackCount <= 8) return 2;
+    if (trackCount <= 16) return 4;
+    return 6;
+  });
+
   return {
     dir: {
       input: 'src/site',
