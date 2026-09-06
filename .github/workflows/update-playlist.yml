@@ -1,0 +1,61 @@
+name: Update playlist data
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # every Monday at 06:00 UTC
+  workflow_dispatch: {} # allows manual trigger from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run backfill
+        run: npm run backfill --silent > data/episodes.json.new
+
+      - name: Validate new data before replacing
+        run: |
+          node -e '
+            const fs = require("fs");
+            const oldPath = "data/episodes.json";
+            const newPath = "data/episodes.json.new";
+
+            const newData = JSON.parse(fs.readFileSync(newPath, "utf8"));
+            if (!Array.isArray(newData) || newData.length === 0) {
+              throw new Error("New data is empty or malformed — aborting.");
+            }
+
+            if (fs.existsSync(oldPath)) {
+              const oldData = JSON.parse(fs.readFileSync(oldPath, "utf8"));
+              // Episode count should only ever grow (or stay the same); a drop means a bad fetch.
+              if (newData.length < oldData.length) {
+                throw new Error(
+                  `Episode count dropped from ${oldData.length} to ${newData.length} — likely a bad fetch, aborting.`
+                );
+              }
+            }
+
+            fs.renameSync(newPath, oldPath);
+          '
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/episodes.json
+          git diff --cached --quiet || git commit -m "chore: update playlist data"
+          git push
