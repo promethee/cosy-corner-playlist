@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Cosy Corner Playlist</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">🎧 Cosy Corner Playlist</a></h1>
+    <nav>
+      <a href="/">Tous les épisodes</a>
+      <!-- Later: <a href="/tracks/">Tous les morceaux</a> -->
+    </nav>
+  </header>
+  <main>
+    {{ content | safe }}
+  </main>
+</body>
+</html>

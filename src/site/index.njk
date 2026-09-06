@@ -1,31 +1,21 @@
 ---
-title: Cosy Corner Playlist
+title: Accueil
+layout: base.njk
 ---
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>{{ title }}</title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-  <h1>{{ title }}</h1>
-  <p>{{ episodes.length }} épisodes</p>
+<p class="count">{{ episodes.length }} épisodes</p>
 
-  {% for episode in episodes %}
-    <section>
-      <h2>{{ episode.title }}</h2>
-      <p><small>{{ episode.pubDate }}</small></p>
-      {% if episode.tracks.length > 0 %}
-        <ul>
-          {% for track in episode.tracks %}
-            <li>{{ track.artist }} — {{ track.title }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p><em>Pas de playlist pour cet épisode.</em></p>
-      {% endif %}
-    </section>
-  {% endfor %}
-</body>
-</html>
+{% for episode in episodes %}
+  <section class="episode">
+    <h2>{{ episode.title }}</h2>
+    <p class="date">{{ episode.pubDate }}</p>
+    {% if episode.tracks.length > 0 %}
+      <ul class="tracklist">
+        {% for track in episode.tracks %}
+          <li><span class="artist">{{ track.artist }}</span> — {{ track.title }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">Pas de playlist pour cet épisode.</p>
+    {% endif %}
+  </section>
+{% endfor %}
