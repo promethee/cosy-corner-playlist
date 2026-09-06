@@ -8,11 +8,19 @@
 body {
   font-family: system-ui, sans-serif;
   color: var(--text);
-  max-width: 720px;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 2rem;
   line-height: 1.5;
+  box-sizing: border-box;
 }
+
+body.page-episodes {
+  max-width: none;
+}
+
+/* Header / nav */
 
 header {
   border-bottom: 3px solid var(--brand-red);
@@ -37,31 +45,17 @@ nav a:hover {
   color: var(--brand-red);
 }
 
+/* Shared bits */
+
 .count {
   color: var(--text-muted);
   margin-bottom: 2rem;
-}
-
-.episode {
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-}
-.episode h2 {
-  margin-bottom: 0.25rem;
 }
 
 .date {
   color: var(--text-muted);
   font-size: 0.85rem;
   margin-top: 0;
-}
-
-.tracklist {
-  padding-left: 1.2rem;
-}
-.artist {
-  font-weight: 600;
-  /* kept neutral, not red — a whole tracklist column of red would be too much */
 }
 
 .empty {
@@ -78,19 +72,71 @@ nav a:hover {
   margin-bottom: 0;
 }
 
-.track-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
+.all-episodes-link {
+  margin-top: 2rem;
+}
+.all-episodes-link a {
+  color: var(--brand-red);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.track-card {
+/* Landing page: featured latest episode, fixed-size horizontal row */
+
+.latest-episode {
   text-align: center;
 }
 
-.track-tile {
+.latest-episode .track-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.latest-episode .track-tile {
+  flex: 0 0 160px;
+  width: 160px;
   aspect-ratio: 1;
+}
+
+/* All-episodes page: grid of episode cards */
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.episode-card {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.episode-card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.episode-card .track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.episode-card .track-tile {
+  aspect-ratio: 1;
+  width: auto;
+}
+
+/* Track tiles: shared look, sizing handled above per context */
+
+.track-tile {
   background: var(--text);
   color: white;
   display: flex;
@@ -99,26 +145,22 @@ nav a:hover {
   justify-content: center;
   text-align: center;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.6rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.track-tile:hover {
+  background: var(--brand-red);
 }
 
 .track-artist {
-  font-weight: 700;
-  font-size: 0.95rem;
-  margin: 0 0 0.35rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin: 0 0 0.2rem;
 }
 
 .track-title {
   color: #ccc;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin: 0;
-}
-
-.all-episodes-link {
-  margin-top: 2rem;
-}
-.all-episodes-link a {
-  color: var(--brand-red);
-  text-decoration: none;
-  font-weight: 600;
 }
