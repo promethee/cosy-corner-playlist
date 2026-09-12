@@ -144,6 +144,10 @@ export default function (eleventyConfig) {
       : `https://soundcloud.com/search?q=${encodeURIComponent(query)}`;
   });
 
+  eleventyConfig.addFilter('toJsonSafe', (data) => JSON.stringify(data));
+
+  eleventyConfig.addPassthroughCopy('src/site/robots.txt');
+
   return {
     pathPrefix: '/cosy-corner-playlist/',
     dir: {

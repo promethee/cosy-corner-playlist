@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Toutes les musiques passées dans le podcast Le Cosy Corner, épisode par épisode.">
+  <meta property="og:title" content="Cosy Corner Playlist">
+  <meta property="og:description" content="Toutes les musiques passées dans le podcast Le Cosy Corner.">
+  <meta property="og:type" content="website">
   <title>{{ title }} · Cosy Corner Playlist</title>
   <link rel="stylesheet" href="{{ '/styles.css' | url }}">
   <link rel="preconnect" href="https://soundcloud.com">
@@ -29,6 +33,7 @@
       <a href="{{ '/' | url }}">Accueil</a>
       <a href="{{ '/episodes/' | url }}">Tous les épisodes</a>
       <a href="{{ '/tableau/' | url }}">Tableau des morceaux</a>
+      <a href="#" id="random-track-btn">🎲 Découverte aléatoire</a>
     </nav>
   </header>
   <main>
@@ -41,5 +46,15 @@
       C'est aussi un projet perso : Pour mon portfolio, et pour tester un project fait avec une IA.
     </p>
   </footer>
+  <script>
+    document.getElementById("random-track-btn").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const res = await fetch("{{ '/random-tracks.json' | url }}");
+      const tracks = await res.json();
+      const track = tracks[Math.floor(Math.random() * tracks.length)];
+      const query = encodeURIComponent(track.artist + " " + track.title);
+      window.open(`https://soundcloud.com/search?q=${query}`, "_blank");
+    });
+  </script>
 </body>
 </html>

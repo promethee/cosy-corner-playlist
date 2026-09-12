@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://promethee.github.io/cosy-corner-playlist/sitemap.xml

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/cosy-corner-playlist/styles.css">
   <link rel="preconnect" href="https://soundcloud.com">
   <link rel="preconnect" href="https://duckduckgo.com">
+  <script data-goatcounter="https://cosycornerplaylist.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body class="page-episodes">
   <header>
@@ -28,6 +29,7 @@
       <a href="/cosy-corner-playlist/">Accueil</a>
       <a href="/cosy-corner-playlist/episodes/">Tous les épisodes</a>
       <a href="/cosy-corner-playlist/tableau/">Tableau des morceaux</a>
+      <a href="#" id="random-track-btn">🎲 Découverte aléatoire</a>
     </nav>
   </header>
   <main>
@@ -8598,5 +8600,15 @@
       C'est aussi un projet perso : Pour mon portfolio, et pour tester un project fait avec une IA.
     </p>
   </footer>
+  <script>
+    document.getElementById("random-track-btn").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const res = await fetch("/cosy-corner-playlist/random-tracks.json");
+      const tracks = await res.json();
+      const track = tracks[Math.floor(Math.random() * tracks.length)];
+      const query = encodeURIComponent(track.artist + " " + track.title);
+      window.open(`https://soundcloud.com/search?q=${query}`, "_blank");
+    });
+  </script>
 </body>
 </html>
