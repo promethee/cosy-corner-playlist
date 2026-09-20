@@ -2,11 +2,12 @@ name: Update playlist data
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # every Monday at 06:00 UTC
+    - cron: '0 6 * * *' # daily at 06:00 UTC (episodes drop Tuesday ~22:00 UTC)
   workflow_dispatch: {} # allows manual trigger from the Actions tab
 
 permissions:
   contents: write
+  actions: write # needed to dispatch the deploy workflow
 
 jobs:
   backfill:
@@ -53,9 +54,22 @@ jobs:
           '
 
       - name: Commit changes if any
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/episodes.json
-          git diff --cached --quiet || git commit -m "chore: update playlist data"
-          git push
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: update playlist data"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Pushes made with GITHUB_TOKEN don't trigger other workflows, so deploy explicitly.
+      - name: Trigger site deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref "${{ github.ref_name }}"
