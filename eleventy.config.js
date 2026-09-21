@@ -67,18 +67,6 @@ export default function (eleventyConfig) {
     return 6;
   });
 
-  eleventyConfig.addFilter('cardSpan', (trackCount) => {
-    if (trackCount <= 8) return 1;
-    if (trackCount <= 16) return 2;
-    return 3;
-  });
-
-  eleventyConfig.addFilter('innerColumns', (trackCount) => {
-    if (trackCount <= 8) return 2;
-    if (trackCount <= 16) return 4;
-    return 6;
-  });
-
   function trackKey(track) {
     return `${track.artist.trim().toLowerCase()}|||${track.title.trim().toLowerCase()}`;
   }
