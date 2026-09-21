@@ -1,5 +1,53 @@
 [
   {
+    "guid": "tag:soundcloud,2010:tracks/2401175907",
+    "title": "#186 - ALORS !",
+    "pubDate": "Tue, 15 Sep 2026 22:16:34 +0000",
+    "link": "https://soundcloud.com/lecosycorner/186-alors",
+    "tracks": [
+      {
+        "artist": "David Bowie",
+        "title": "Space Oddity",
+        "raw": "David Bowie - Space Oddity"
+      },
+      {
+        "artist": "Andrea Laszlo De Simone",
+        "title": "Ricordo Tattile",
+        "raw": "Andrea Laszlo De Simone - Ricordo Tattile"
+      },
+      {
+        "artist": "Pussy Miel",
+        "title": "Wasted",
+        "raw": "Pussy Miel - Wasted"
+      },
+      {
+        "artist": "Daoud",
+        "title": "Quick (Le restaurant)",
+        "raw": "Daoud - Quick (Le restaurant)"
+      },
+      {
+        "artist": "Wang Wen",
+        "title": "My Crime",
+        "raw": "Wang Wen - My Crime"
+      },
+      {
+        "artist": "Corto.Alto",
+        "title": "Thief",
+        "raw": "Corto.Alto - Thief"
+      },
+      {
+        "artist": "ALB",
+        "title": "Thanksman (Cosy Corner 186 Special Thanks)",
+        "raw": "ALB - Thanksman (Cosy Corner 186 Special Thanks)"
+      },
+      {
+        "artist": "(Crédits additionnels : Konbini",
+        "title": "Small Talk S04E33)",
+        "raw": "(Crédits additionnels : Konbini - Small Talk S04E33)"
+      }
+    ]
+  },
+  {
     "guid": "tag:soundcloud,2010:tracks/2369529188",
     "title": "#185 - Yannifique !",
     "pubDate": "Tue, 28 Jul 2026 21:55:46 +0000",
