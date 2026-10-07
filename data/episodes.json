@@ -1,5 +1,43 @@
 [
   {
+    "guid": "tag:soundcloud,2010:tracks/2414346273",
+    "title": "#187 - Cyber Village",
+    "pubDate": "Tue, 06 Oct 2026 21:59:26 +0000",
+    "link": "https://soundcloud.com/lecosycorner/187-cyber-village",
+    "tracks": [
+      {
+        "artist": "Smush",
+        "title": "If We Didn't Cry",
+        "raw": "Smush - If We Didn't Cry"
+      },
+      {
+        "artist": "Cudos",
+        "title": "Breakthru2",
+        "raw": "Cudos - Breakthru2"
+      },
+      {
+        "artist": "Kiko Mizuhara",
+        "title": "Feelin' Wee",
+        "raw": "Kiko Mizuhara - Feelin' Wee"
+      },
+      {
+        "artist": "Tove Lo",
+        "title": "Sadder Badder Cooler (Liu Remix)",
+        "raw": "Tove Lo - Sadder Badder Cooler (Liu Remix)"
+      },
+      {
+        "artist": "Domi & JD Beck",
+        "title": "Two Shrimps",
+        "raw": "Domi & JD Beck - Two Shrimps"
+      },
+      {
+        "artist": "ALB",
+        "title": "Going the Disthanks (Cosy Corner 187 Special Thanks)",
+        "raw": "ALB - Going the Disthanks (Cosy Corner 187 Special Thanks)"
+      }
+    ]
+  },
+  {
     "guid": "tag:soundcloud,2010:tracks/2401175907",
     "title": "#186 - ALORS !",
     "pubDate": "Tue, 15 Sep 2026 22:16:34 +0000",
